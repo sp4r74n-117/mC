@@ -12,7 +12,7 @@ Grammar (EBNF)
 	<expression> ::= <binary_operation> | <single_expr>
 	<binary_operation> ::= <single_expr> , <bin_op> , <expression>
 	<single_expr> ::= <paren_expr> | <unary_expr> | <literal> | <variable>
-	<binop> ::= "+" | "-" | "*" | "/" | "==" | "!=" | "<=" | ">=" | "<" | ">" | "="
+	<bin_op> ::= "+" | "-" | "*" | "/" | "==" | "!=" | "<=" | ">=" | "<" | ">" | "="
 	<paren_expr> ::= "(" , <expression> , ")"
 	<unary_expr> ::= <unop> , <expression>
 	<unop> ::= "-" | "!"
@@ -26,7 +26,7 @@ Grammar (EBNF)
 	<alnum> ::= <digit> | <alpha>
 
 	<statement> ::= <if_stmt> | <decl_stmt> | <compound_stmt> | <expr_stmt>
-	<if_stmt> ::= "if" , <paren_expr> , <statement> [ , "else" , <statement> ] , ";"
+	<if_stmt> ::= "if" , <paren_expr> , <statement> [ , "else" , <statement> ]
 	<decl_stmt> ::= <type> , <identifier> [ , "=" , <expression> ] , ";"
 	<compound_stmt> ::= "{" , { <statement> } , "}"
 	<expr_stmt> ::= <expression> , ";"
