@@ -14,8 +14,8 @@ Grammar (EBNF)
 	<single_expr> ::= <paren_expr> | <unary_expr> | <literal> | <variable>
 	<bin_op> ::= "+" | "-" | "*" | "/" | "==" | "!=" | "<=" | ">=" | "<" | ">" | "="
 	<paren_expr> ::= "(" , <expression> , ")"
-	<unary_expr> ::= <unop> , <expression>
-	<unop> ::= "-" | "!"
+	<unary_expr> ::= <un_op> , <expression>
+	<un_op> ::= "-" | "!"
 	<literal> ::= <int_lit> | <float_lit>
 	<int_lit> ::= <digit> { <digit> }
 	<float_lit ::= <digit> { <digit> } "." { <digit> }
