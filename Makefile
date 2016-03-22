@@ -7,8 +7,8 @@ SRCS=$(shell ls *.cpp)
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all:  $(OBJS)
-	$(CXX) $(LDFLAGS) -o mC $(OBJS) $(LDLIBS) 
-	
+	$(CXX) $(LDFLAGS) -o mC $(OBJS) $(LDLIBS)
+
 %.o : %.cpp
 	$(CXX) $(CPPFLAGS) $< -c -o $@
 
