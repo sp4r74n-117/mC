@@ -1,5 +1,6 @@
-#include "../parser.h"
+#include "parser_tests.h"
 
+#include "../parser.h"
 #include "test_utils.h"
 
 void test_parser() {

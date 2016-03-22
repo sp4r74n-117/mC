@@ -28,4 +28,3 @@ bool starts_with(const std::string &s, const std::string &prefix) {
 bool ends_with(const std::string &s, const std::string &suffix) {
 	return s.compare(s.size() - suffix.size(), suffix.size(), suffix) == 0;
 }
-
