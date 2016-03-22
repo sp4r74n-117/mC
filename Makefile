@@ -3,7 +3,7 @@ RM=rm -f
 CPPFLAGS=-g -Wall --std=c++14
 LDFLAGS=-g
 
-SRCS=$(shell ls *.cpp)
+SRCS=$(shell ls *.cpp) $(shell ls tests/*.cpp)
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all:  $(OBJS)

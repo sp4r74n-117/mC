@@ -5,8 +5,7 @@
 #include "ast.h"
 #include "parser.h"
 #include "stream_utils.h"
-
-void test_parser();
+#include "tests/parser_tests.h"
 
 int main(int argc, char** argv) {
 
