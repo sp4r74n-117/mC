@@ -226,6 +226,7 @@ namespace parser {
 		sptr<ast::unary_operand> ret;
 		switch(*p.s) {
 		case '-': ret = std::make_shared<ast::unary_operand>(ast::unary_operand::MINUS); break;
+		case '!': ret = std::make_shared<ast::unary_operand>(ast::unary_operand::NOT); break;
 		}
 		if(ret) p.s++;
 		return ret;
