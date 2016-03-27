@@ -90,6 +90,7 @@ namespace ast {
 	std::ostream& operator<<(std::ostream& stream, const unary_operand& op) {
 		switch(op) {
 		case unary_operand::MINUS: return stream << "-";
+		case unary_operand::NOT: return stream << "!";
 		};
 		assert(false && "Unsupported unary operand");
 		return stream;
