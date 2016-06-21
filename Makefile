@@ -1,9 +1,9 @@
-CXX=/scratch/c703/c703432/gcc-5.3.0-install/bin/g++
+CXX=g++
 RM=rm -f
-CPPFLAGS=-g -Wall --std=c++14
-LDFLAGS=-g
+CPPFLAGS=-g -Wall --std=c++14 -I.
+LDFLAGS=
 
-SRCS=$(shell ls *.cpp) $(shell ls tests/*.cpp)
+SRCS=$(shell ls *.cpp) $(shell ls frontend/*.cpp) $(shell ls backend/*.cpp) $(shell ls tests/*.cpp) $(shell ls core/*.cpp) $(shell ls core/analysis/*.cpp) $(shell ls core/checks/*.cpp) $(shell ls core/passes/*.cpp) $(shell ls utils/*.cpp) $(shell ls core/arithmetic/*.cpp)
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all:  $(OBJS)
@@ -14,5 +14,6 @@ all:  $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
+	$(RM) mC
 
 print-%  : ; @echo $* = $($*)

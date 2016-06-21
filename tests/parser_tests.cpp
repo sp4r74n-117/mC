@@ -1,6 +1,6 @@
 #include "parser_tests.h"
 
-#include "../parser.h"
+#include "frontend/parser.h"
 #include "test_utils.h"
 
 void test_parser() {
@@ -21,7 +21,9 @@ void test_parser() {
 	string str_if_error{"if 7;"};
 	string str_int{"int"};
 	string str_float{"  float "};
-	string str_decl{"int test;"};
+	string str_var_decl{"int test;"};
+	string str_fun_decl{"int test(int a, float);"};
+	string str_arr_decl{"int test[10];"};
 
 	// types
 	EXPECT_NO_MATCH(parser::type, str_plus);
@@ -91,7 +93,32 @@ void test_parser() {
 	EXPECT_NO_MATCH(parser::if_stmt, str_test);
 	EXPECT_MATCH(parser::if_stmt, str_if, [](auto res) { return *res->condition == ast::int_literal{1}; });
 	EXPECT_MATCH(parser::if_stmt, str_if_else, [](auto res) { return *res->else_stmt == ast::expr_stmt{std::make_shared<ast::int_literal>(5)}; });
-	EXPECT_MATCH(parser::decl_stmt, str_decl, [](auto res) { return res->var->name == "test" && typeid(*res->var->var_type) == typeid(ast::int_type); });
+	EXPECT_MATCH(parser::var_decl_stmt, str_var_decl, [](auto res) { return res->var->name == "test" && typeid(*res->var->var_type) == typeid(ast::int_type); });
+	EXPECT_MATCH(parser::fun_decl_stmt, str_fun_decl, [](auto res) {
+		if (!res) return false;
+
+		auto decl = res->decl;
+		auto type = decl->type;
+		return decl->name == "_test" &&
+			   typeid(*type->return_type) == typeid(ast::int_type) &&
+			   type->parameter_types.size() == 2 &&
+			   typeid(*type->parameter_types[0]) == typeid(ast::int_type) &&
+			   typeid(*type->parameter_types[1]) == typeid(ast::float_type) &&
+			   decl->params.size() == 2 &&
+			   decl->params[0]->name == "a" &&
+			   decl->params[1]->name == "";});
+	EXPECT_MATCH(parser::arr_decl_stmt, str_arr_decl, [](auto res) {
+		if (!res) return false;
+
+		auto arr = std::dynamic_pointer_cast<ast::array>(res->var);
+		if (!arr) return false;
+		if (arr->name != "test") return false;
+		if (arr->dimensions.size() != 1) return false;
+
+		auto type = std::dynamic_pointer_cast<ast::array_type>(arr->var_type);
+		if (!type) return false;
+		return true;
+	});
 
 	EXPECT(parser::parse(R"(
 	{
@@ -107,4 +134,50 @@ void test_parser() {
 		2.9;
 	}
 	)"));
+
+	EXPECT(parser::parse(R"(
+	{
+		while (1) {}
+		while (1 + 2) {}
+		for (;;) {}
+		for (int a = 0; a < 10; a = a + 2) {}
+		for (int a = 0, b = 10; a < b; a = a * 2, b = a / 2) {}
+		int a = 0;
+		for (a = 2;;) {}
+		for (3+4;1/2;4+4) {}
+		for (;;a = a + 1) {}
+		int b[10];
+		float c[a+1];
+		int d[12][a+2][13];
+	}
+	)"));
+
+	EXPECT(parser::parse(R"(
+		void a();
+		void b(int, int);
+		int c(int fst, int snd);
+		int d(int, int snd, int);
+	)"));
+
+	{
+		auto tu = std::dynamic_pointer_cast<ast::program>(
+			parser::parse(R"(
+				int foo(int, int);
+				void bar(int a)
+				{
+					int c = foo(a + a, 2);
+					return;
+				}
+				int foo(int a, int b)
+				{
+					return a + b;
+				}
+			)"));
+		EXPECT(tu);
+		EXPECT(tu->funs.size() == 2);
+		EXPECT(tu->funs[0]->decl->name == "_bar");
+		EXPECT(tu->funs[0]->body);
+		EXPECT(tu->funs[1]->decl->name == "_foo");
+		EXPECT(tu->funs[1]->body);
+	}
 }

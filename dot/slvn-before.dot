@@ -1,0 +1,17 @@
+digraph cfg {
+L0 [label="a.0 = 0\nb.1 = 1\nc.2 = 0\nd.3 = 4\ne.4 = 2\nf.5 = 3\n$0 = a.0+b.1\nm.6 = $0\n$1 = a.0+b.1\nn.7 = $1\nfjmp 1 L1", shape="rectangle"]
+L5 [label="$2 = c.2+d.3\np.8 = $2\n$3 = c.2+d.3\nr.9 = $3\ngoto L2", shape="rectangle"]
+L1 [label="$4 = a.0+b.1\nq.10 = $4\n$5 = c.2+d.3\nr.11 = $5\nfjmp 1 L3", shape="rectangle"]
+L6 [label="$6 = b.1+5\ne.12 = $6\n$7 = a.0+b.1\ns.13 = $7\n$8 = e.12+f.5\nu.14 = $8\ngoto L4", shape="rectangle"]
+L3 [label="$9 = b.1+8\ne.15 = $9\n$10 = c.2+d.3\nt.16 = $10\n$11 = e.15+f.5\nu.17 = $11", shape="rectangle"]
+L4 [label="$12 = a.0+b.1\nv.18 = $12\n$13 = c.2+d.3\nw.19 = $13\n$14 = e.4+f.5\nx.20 = $14", shape="rectangle"]
+L2 [label="$15 = a.0+b.1\ny.21 = $15\n$16 = c.2+d.3\nz.22 = $16", shape="rectangle"]
+L0 -> L1 [label="L0 -> L1"]
+L0 -> L5 [label="L0 -> L5"]
+L5 -> L2 [label="L5 -> L2"]
+L1 -> L3 [label="L1 -> L3"]
+L1 -> L6 [label="L1 -> L6"]
+L6 -> L4 [label="L6 -> L4"]
+L3 -> L4 [label="L3 -> L4"]
+L4 -> L2 [label="L4 -> L2"]
+}

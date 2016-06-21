@@ -25,9 +25,9 @@ Grammar (EBNF)
 	<alpha> ::= 'a' | 'b' ... | 'z' | 'A' | 'B' ... | 'Z' | '_'
 	<alnum> ::= <digit> | <alpha>
 
-	<statement> ::= <if_stmt> | <decl_stmt> | <compound_stmt> | <expr_stmt>
+	<statement> ::= <if_stmt> | <var_decl_stmt> | <compound_stmt> | <expr_stmt>
 	<if_stmt> ::= "if" , <paren_expr> , <statement> [ , "else" , <statement> ]
-	<decl_stmt> ::= <type> , <identifier> [ , "=" , <expression> ] , ";"
+	<var_decl_stmt> ::= <type> , <identifier> [ , "=" , <expression> ] , ";"
 	<compound_stmt> ::= "{" , { <statement> } , "}"
 	<expr_stmt> ::= <expression> , ";"
 

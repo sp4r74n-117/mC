@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <sstream>
-
-#include "ast.h"
+#include <string>
 
 class formatted_ostream {
 
@@ -13,7 +12,7 @@ class formatted_ostream {
 public:
 	formatted_ostream(std::basic_ostream<char>& internal_stream) : internal_stream(internal_stream) {}
 
-	formatted_ostream& operator<<(const string& to_print);
+	formatted_ostream& operator<<(const std::string& to_print);
 };
 
 template<typename T>

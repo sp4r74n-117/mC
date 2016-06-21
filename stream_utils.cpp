@@ -4,7 +4,7 @@
 
 #include "string_utils.h"
 
-formatted_ostream& formatted_ostream::operator<<(const string& to_print) {
+formatted_ostream& formatted_ostream::operator<<(const std::string& to_print) {
 	auto lines = split(to_print, '\n');
 	for(auto line: lines) {
 		// remove indentation if "}"

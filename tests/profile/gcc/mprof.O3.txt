@@ -1,0 +1,6 @@
+function main
+ called from ??
+ took avg: 10416 stddev: 0 cycles
+function sum
+ called from ??
+ took avg: 33 stddev: 8 cycles

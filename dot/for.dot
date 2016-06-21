@@ -1,0 +1,10 @@
+digraph cfg {
+L0 [label="", shape="rectangle"]
+L1 [label="fjmp 1 L2", shape="rectangle"]
+L3 [label="c.0 = 0\ngoto L1", shape="rectangle"]
+L2 [label="", shape="rectangle"]
+L0 -> L1 [label="L0 -> L1"]
+L1 -> L2 [label="L1 -> L2"]
+L1 -> L3 [label="L1 -> L3"]
+L3 -> L1 [label="L3 -> L1"]
+}
